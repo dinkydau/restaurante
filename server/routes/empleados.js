@@ -42,10 +42,7 @@ app.get('/empleado/:id', (req, res) => {
         }
         res.json({
             ok: true,
-            conteo,
-            despensa,
-            limite,
-            desde
+            empleadoDB
         });
     });
 });
@@ -94,7 +91,7 @@ app.put('/empleado/:id', (req, res) => {
 app.delete('/empleado/:id', (req, res) => {
     let id = req.params.id;
     let body = {activo: false };
-    Empleado.findByIdAndUpdate(id,body,(err,empleadoDB)=>{
+    Empleado.findByIdAndUpdate(id,body,{ new: true, runValidators: true, useFindAndModify: false },(err,empleadoDB)=>{
         if (err) {
             return res.status(400).json({
                 ok: false,
@@ -111,7 +108,7 @@ app.delete('/empleado/:id', (req, res) => {
         }
         res.json({
             ok: true,
-            despensa: despensaDB
+            empleado: empleadoDB
         })
     });
 });
