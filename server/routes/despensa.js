@@ -39,7 +39,8 @@ app.get('/despensa', (req, res) => {
 //===========================================
 app.get('/despensa/:id', (req, res) => {
     let id = req.params.id;
-    Despensa.find({ disponible: true }, 'nombre descripcion cantidad disponible categoria img')
+    Despensa.findById(id,'nombre descripcion cantidad disponible categoria img')
+    //Despensa.find({ disponible: true }, 'nombre descripcion cantidad disponible categoria img')
         .exec((err, despensa) => {
             if (err) {
                 return res.status(400).json({
@@ -102,7 +103,7 @@ app.put('/despensa/:id', (req, res) => {
 
         res.json({
             ok: true,
-            usuario: despensaDB
+            despensa: despensaDB
         });
     });
 })
